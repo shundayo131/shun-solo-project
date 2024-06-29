@@ -5,7 +5,7 @@ const app = express();
 const PORT = 3000;
 
 // [TO DO] set up server
-
+console.log(process.env.NODE_ENV); 
 // initial setup 
 
 // handling incoming request bodies as JSON
@@ -20,9 +20,9 @@ app.get('/', (req, res) => {
 
 // now testing to handle get request to /api route
 app.get('/api', (req, res) => {
-  return res.status(200).json('this is a response from server'); 
+  return res.status(200).json('this is a response from server - but updated'); 
 });
 
 app.listen(PORT, () => {
-  console.log('server is running on the port ${PORT}')
+  console.log(`server is running on the port ${PORT}`)
 });
