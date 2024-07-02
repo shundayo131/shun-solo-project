@@ -4,9 +4,9 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
-// [TO DO] set up server
+const apiRouter = require('./routes/api');
+
 console.log(process.env.NODE_ENV); 
-// initial setup 
 
 // handling incoming request bodies as JSON
 app.use(express.json());
@@ -18,10 +18,10 @@ app.get('/', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
 
-// now testing to handle get request to /api route
-app.get('/api', (req, res) => {
-  return res.status(200).json('this is a response from server - but updated'); 
-});
+// define route hanlders  
+app.use('/api', apiRouter);
+
+// TODO - global error handler 
 
 app.listen(PORT, () => {
   console.log(`server is running on the port ${PORT}`)
