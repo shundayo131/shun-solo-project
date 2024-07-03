@@ -1,5 +1,6 @@
 import React from "react";
 import AddContainer from "./AddContainer.jsx";
+import ResourceContainer from "./ResourceContainer.jsx";
 
 const MainContainer = () => {
 
@@ -9,6 +10,7 @@ const MainContainer = () => {
         <h1 id='header'>My application</h1>
         {/* add components here */}
         <AddContainer />
+        <ResourceContainer />
       </div>
     </div>
   )

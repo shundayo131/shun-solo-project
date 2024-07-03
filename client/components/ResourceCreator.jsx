@@ -26,6 +26,11 @@ const ResourceCreator = () => {
       });
 
       if(response.ok) {
+        setFormData({
+          name: '',
+          url: '',
+          tag: '',
+        })
         console.log('resource saved successfully')
       } else {
         console.lor('failed to save resource')

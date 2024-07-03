@@ -29,6 +29,7 @@ resourceController.getResource = async (req, res, next) => {
     `
     const result = await db.query(text);
     res.locals.resourceList = [...result.rows];
+    console.log('stored data in res.locals: ', res.locals.resourceList)
     return next();
   } catch {
     // TODO - handle error 
