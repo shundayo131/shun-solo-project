@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 // import from chile component 
-import Resource from "../components/Resource.jsx";
+import Resource from "../components/Resource.jsx"; // will remove 
 
 const ResourceContainer = () => {
   // create state

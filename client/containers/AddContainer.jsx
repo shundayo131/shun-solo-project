@@ -7,7 +7,6 @@ const AddContainer = () => {
 
   return (
     <div className='inner'>
-      <p>add your resource</p>
       <ResourceCreator />
     </div>
   ) 

@@ -8,7 +8,7 @@ const MainContainer = () => {
     <div className="container">
       <div className="outer">
         <h1 id='header'>My application</h1>
-        {/* add components here */}
+        {/* add header */}
         <AddContainer />
         <ResourceContainer />
       </div>

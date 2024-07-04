@@ -7,13 +7,13 @@ const resourceController = {};
 
 resourceController.addResource = async (req, res, next) => {
   console.log('inserting data to resource table')
-  const { name, url, tag } = req.body;
+  const { name, url, tag, note } = req.body;
   try {
     const text = `
-      INSERT INTO resource (name, url, tag)
-      VALUES ($1, $2, $3)
+      INSERT INTO resource (name, url, tag, note)
+      VALUES ($1, $2, $3, $4)
     ` 
-    const param = [name, url, tag];
+    const param = [name, url, tag, note];
     const result = await db.query(text, param);
     return next();
   } catch (error) {
@@ -29,7 +29,6 @@ resourceController.getResource = async (req, res, next) => {
     `
     const result = await db.query(text);
     res.locals.resourceList = [...result.rows];
-    console.log('stored data in res.locals: ', res.locals.resourceList)
     return next();
   } catch {
     // TODO - handle error 

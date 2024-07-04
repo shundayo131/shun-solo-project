@@ -5,7 +5,10 @@ const ResourceCreator = () => {
     name: '',
     url: '',
     tag: '',
+    note: '',
   });
+
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     setFormData({
@@ -16,6 +19,13 @@ const ResourceCreator = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formData.name.trim() || !formData.url.trim()) {
+      setErrorMessage('Name and URL cannot be empty!');
+      return;
+    }
+    setErrorMessage('');
+
     try {
       const response = await fetch('/api', { 
         method: "POST",
@@ -30,6 +40,7 @@ const ResourceCreator = () => {
           name: '',
           url: '',
           tag: '',
+          note: '',
         })
         console.log('resource saved successfully')
       } else {
@@ -41,33 +52,49 @@ const ResourceCreator = () => {
   };
   
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='input-form' onSubmit={handleSubmit}>
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
       <div className='input-wrapper'>
-        <p>resource name</p>
-        <input 
-          type='text' 
-          name='name'
-          placeholder='Name'
-          value={formData.name}
-          onChange={handleChange}
-        />
-        <p>resource URL</p>
-        <input 
-          type='url' 
-          name='url'
-          placeholder='URL'
-          value={FormData.url}
-          onChange={handleChange}
-        />
-        <p>tag</p>
-        <input 
-          type='text' 
-          name='tag'
-          placeholder='Tag'
-          value={formData.tag}
-          onChange={handleChange}
-        />
-        <p>Save the resource</p>
+        <div className='inputBox'>
+          <p>resource name: </p>
+          <input 
+            type='text' 
+            name='name'
+            placeholder='Name'
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </div>
+        <div className='inputBox'>
+          <p>resource URL: </p>
+          <input 
+            type='url' 
+            name='url'
+            placeholder='URL'
+            value={FormData.url}
+            onChange={handleChange}
+          />
+        </div>
+        <div className='inputBox'>
+          <p>tag: </p>
+          <input 
+            type='text' 
+            name='tag'
+            placeholder='Tag'
+            value={formData.tag}
+            onChange={handleChange}
+          />
+        </div>
+        <div className='inputBox'>
+          <p>note: </p>
+          <input 
+            type='text' 
+            name='note'
+            placeholder='note'
+            value={formData.note}
+            onChange={handleChange}
+          />
+        </div>
         <input 
           type='submit' 
           value='Save' 
