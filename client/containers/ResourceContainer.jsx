@@ -3,10 +3,15 @@ import React, { useState, useEffect } from "react";
 // import from chile component 
 import Resource from "../components/Resource.jsx"; // will remove 
 
-const ResourceContainer = () => {
+const ResourceContainer = (props) => {
+
+  // triggerFetch state used as a trigger to run useEffect below
+  const triggerFetch = props.triggerFetch;
+
   // create state
   const [resourceList, setResourceList] = useState([]);
 
+  console.log('ResourceContainer is rendered')
   // fetch request to get all resources and store them to 'resourceList' 
   useEffect(() => {
     const fetchData = async() => {
@@ -20,7 +25,7 @@ const ResourceContainer = () => {
     };
 
     fetchData();
-  }, []);
+  }, [triggerFetch]);
   
   console.log('resource list is: ', resourceList);
 

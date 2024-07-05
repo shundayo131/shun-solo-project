@@ -3,11 +3,11 @@ import React from "react";
 // import from chile component 
 import ResourceCreator from "../components/ResourceCreator.jsx"
 
-const AddContainer = () => {
+const AddContainer = (props) => {
 
   return (
     <div className='inner'>
-      <ResourceCreator />
+      <ResourceCreator {...props} />
     </div>
   ) 
 }

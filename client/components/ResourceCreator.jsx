@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 
 // TODO: lift the state up to App, so that whenever a new resource is created, render 'resourceContainer' and show a new resource
 
-const ResourceCreator = () => {
-  const [formData, setFormData] = useState({
+const ResourceCreator = (props) => {
+
+  const { setTriggerFetch } = props;
+
+   // initialize state for input form 
+   const [formData, setFormData] = useState({
     name: '',
     url: '',
     tag: '',
@@ -11,6 +15,7 @@ const ResourceCreator = () => {
     user_id: '',
   });
 
+  // initialize state for error message of input form 
   const [errorMessage, setErrorMessage] = useState('');
 
   // get user_id and update state
@@ -63,6 +68,9 @@ const ResourceCreator = () => {
           url: '',
           tag: '',
           note: '',
+        })
+        setTriggerFetch({
+          trigger: '',
         })
         console.log('resource saved successfully')
       } else {
