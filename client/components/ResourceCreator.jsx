@@ -44,7 +44,7 @@ const ResourceCreator = () => {
         })
         console.log('resource saved successfully')
       } else {
-        console.lor('failed to save resource')
+        console.log('failed to save resource')
       }
     } catch (error) {  
       console.log('error occured');

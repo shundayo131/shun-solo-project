@@ -2,12 +2,19 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // require 'html-webpack-plugin' 
 
 module.exports = {
-  entry: './client/index.js', // set an entry point
-  output: { // set a path and filename of output (bundle file)
+  // set multiple entry points 
+  entry: {
+    main: './client/index.js',
+    signup: './client/signup.js',
+    login: './client/login.js',
+  }, 
+  // set a path and filename of output (bundle file)
+  output: { 
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
   },
-  mode: process.env.NODE_ENV, // switch between 'production' and 'development'
+  // switch between 'production' and 'development'
+  mode: process.env.NODE_ENV, 
   module: {
     // 'rules' is the most important sub-property of 'module'. 
     // It contains a set of rules that determine how Webpack should process different types of files.
@@ -34,9 +41,23 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({ 
-      title: 'Development',
+      title: 'main',
+      chunks: ['main'], // This will include only the main bundle
       template: path.resolve(__dirname, 'index.html'), 
-    })
+      filename: 'index.html'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'signup',
+      chunks: ['signup'], // This will include only the signup bundle
+      template: path.resolve(__dirname, 'client/signup.html'),
+      filename: 'signup.html'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'login',
+      chunks: ['login'], // This will include only the login bundle
+      template: path.resolve(__dirname, 'client/login.html'),
+      filename: 'login.html'
+    }),
   ],
   devServer: {
     static:{
@@ -46,7 +67,7 @@ module.exports = {
     port: 8080,
     proxy: [
       {
-        context: ['/api'],
+        context: ['/api', '/signup', '/login'], // added /signup & /login
         target: 'http://localhost:3000',
       },
     ],

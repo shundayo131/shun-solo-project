@@ -12,7 +12,6 @@ const Resource = (props) => {
       <p>note: {note}</p>
     </div>
   )
-
 }
 
 export default Resource;

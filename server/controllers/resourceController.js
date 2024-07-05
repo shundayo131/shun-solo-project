@@ -1,4 +1,4 @@
-const db = require('../models/resourceModels.js');
+const db = require('../models/models.js');
 
 // create an object to store controllers 
 const resourceController = {};
