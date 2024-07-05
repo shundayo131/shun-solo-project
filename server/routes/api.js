@@ -1,6 +1,7 @@
 const express = require('express');
 
 const resourceController = require('../controllers/resourceController.js');
+const userController = require('../controllers/userController.js');
 
 const router = express.Router();
 
@@ -15,6 +16,14 @@ router.post('/',
 router.get('/',
   resourceController.getResource, (req, res) => {
     res.status(200).json(res.locals.resourceList);
+  }
+)
+
+// TODO: handle get request to /api/xxx - get user_id from a joint table
+router.get('/user',
+  userController.getUser,
+  (req, res) => {
+    res.status(200).json(res.locals.user_id);
   }
 )
 

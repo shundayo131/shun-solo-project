@@ -71,5 +71,14 @@ userController.verifyUser = async (req, res, next) => {
   }
 }
 
+// get user 
+userController.getUser = async (req, res, next) => {
+  // get a user_id from user table, using cookie (ssid = cookieid in session table = id in user)
+  const user_id = req.cookies.ssid;
+  // pass it through res.local.user_id 
+  res.locals.user_id = user_id;
+  return next();
+}
+
 
 module.exports = userController;

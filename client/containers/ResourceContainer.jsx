@@ -34,6 +34,7 @@ const ResourceContainer = () => {
         name={resource.name}
         url={resource.url}
         tag={resource.tag}
+        note={resource.note}
       />
     )
   })

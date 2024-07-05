@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+// TODO: lift the state up to App, so that whenever a new resource is created, render 'resourceContainer' and show a new resource
 
 const ResourceCreator = () => {
   const [formData, setFormData] = useState({
@@ -6,9 +8,29 @@ const ResourceCreator = () => {
     url: '',
     tag: '',
     note: '',
+    user_id: '',
   });
 
   const [errorMessage, setErrorMessage] = useState('');
+
+  // get user_id and update state
+  useEffect(() => {
+    const fetchData = async() => {
+      try {
+        const response = await fetch('/api/user');
+        const result = await response.json();  
+        setFormData({
+          ...formData,
+          user_id: result,
+        });
+      } catch (error) {
+        console.log('error fetching data');
+      }
+    };
+
+    fetchData();
+  }, []);
+
 
   const handleChange = (e) => {
     setFormData({

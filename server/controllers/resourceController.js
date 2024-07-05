@@ -6,14 +6,15 @@ const resourceController = {};
 // TODO - add 'user_id' to resource to associate the data with a user. 
 
 resourceController.addResource = async (req, res, next) => {
+  // TODO: update the middleware to insert 'user_id'
   console.log('inserting data to resource table')
-  const { name, url, tag, note } = req.body;
+  const { name, url, tag, note, user_id } = req.body;
   try {
     const text = `
-      INSERT INTO resource (name, url, tag, note)
-      VALUES ($1, $2, $3, $4)
+      INSERT INTO resource (name, url, tag, note, user_id)
+      VALUES ($1, $2, $3, $4, $5)
     ` 
-    const param = [name, url, tag, note];
+    const param = [name, url, tag, note, user_id];
     const result = await db.query(text, param);
     return next();
   } catch (error) {
@@ -26,8 +27,10 @@ resourceController.getResource = async (req, res, next) => {
   try {
     const text = `
       SELECT * FROM resource
+      WHERE user_id = $1
     `
-    const result = await db.query(text);
+    const param = [req.cookies.ssid]; // added ssid in WHERE condition (CHECK if it works)
+    const result = await db.query(text, param); 
     res.locals.resourceList = [...result.rows];
     return next();
   } catch {
