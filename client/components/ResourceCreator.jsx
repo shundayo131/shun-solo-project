@@ -26,7 +26,7 @@ const ResourceCreator = (props) => {
         const result = await response.json();  
         setFormData({
           ...formData,
-          user_id: result,
+          user_id: result, 
         });
       } catch (error) {
         console.log('error fetching data');

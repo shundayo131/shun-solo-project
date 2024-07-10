@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AddContainer from "./AddContainer.jsx";
 import ResourceContainer from "./ResourceContainer.jsx";
+import Header from "../components/Header.jsx"
 
 const MainContainer = () => {
 
@@ -11,7 +12,7 @@ const MainContainer = () => {
 
   return (
     <div className="container">
-      {/* add header */}
+      <Header />
       <AddContainer 
         setTriggerFetch={setTriggerFetch}
       />

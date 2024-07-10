@@ -17,18 +17,14 @@ app.use(express.json());
 // cookie parser - populate req.cookies
 app.use(cookieParser());
 
-// serve static file after middleware checks 
-app.use(express.static(path.join(__dirname, '../build')));
-// app.use(express.static(path.join(__dirname, '..')));
+// root 
 
+/* ISSUE
+In production, this ensures that the isLoggedIn middleware is executed before serving the index.html file.
+However, in development, this route is not hit because webpack-dev-server is serving files directly.
+I wonder if I should change a webpack config to address the issue for dev, but not sure how... 
+*/ 
 
-// app.use((req, res, next) => {
-//   console.log(`Received ${req.method} request for ${req.url}`);
-//   next();
-// });
-
-// root
-// ISSUE: '/' route is not requested from a client now. index.html is served by webpack?? 
 app.get('/', 
   sessionController.isLoggedIn,
   (req, res) => {
@@ -36,6 +32,14 @@ app.get('/',
     return res.status(200).sendFile(path.join(__dirname, '../index.html'));
   }
 );
+
+// Serve static files from the 'build' directory (for production)
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../build')));
+}
+
+// serve static file after middleware checks for production 
+// app.use(express.static(path.join(__dirname, '../build'))); // for production
 
 // signup 
 app.use('/signup', signupRouter);
@@ -45,6 +49,11 @@ app.use('/login', loginRouter);
 
 // api
 app.use('/api', apiRouter);
+
+// Catch-all route to serve index.html for client-side routing
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
+});
 
 // TODO - global error handler 
 

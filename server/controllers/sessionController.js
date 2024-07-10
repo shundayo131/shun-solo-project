@@ -7,26 +7,25 @@ sessionController.isLoggedIn = async (req, res, next) => {
   console.log('isloggedIn hit')
   try {
     const ssid = req.cookies.ssid;
+    console.log('ssid is ', ssid)
     if (!ssid) {
-      return res.redirect('/signup');
+      return res.redirect('/login');
     } 
-
-    // get storedSession 
+    // get stored session (double quate is needed for "cookieId" because it's case sensitive)
     const text = `
-      SELECT cookieId 
+      SELECT "cookieId" 
       FROM session 
-      WHERE cookieId = $1
-    `
+      WHERE "cookieId" = $1
+    `;
     const param = [ssid];
-    const storedSession = await db.query(text, param);
-    console.log('storedSession is: ', storedSession);
-    if (storedSession) {
+    const result = await db.query(text, param);
+    if (result) {
       return next();
     } else {
       return res.redirect('/signup');  
     };
   } catch (error) {
-
+    console.log('error happened for db connection')
   }
 }
 

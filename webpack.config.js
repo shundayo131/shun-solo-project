@@ -15,6 +15,7 @@ module.exports = {
   },
   // switch between 'production' and 'development'
   mode: process.env.NODE_ENV, 
+  // set modules for loader
   module: {
     // 'rules' is the most important sub-property of 'module'. 
     // It contains a set of rules that determine how Webpack should process different types of files.
@@ -39,7 +40,9 @@ module.exports = {
       },
     ]
   },
+  // set plugins
   plugins: [
+    // HtmlWebpackPlugin generates a new html based on a template and inject bundle.js into the new html file
     new HtmlWebpackPlugin({ 
       title: 'main',
       chunks: ['main'], // This will include only the main bundle

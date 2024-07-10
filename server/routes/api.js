@@ -27,4 +27,11 @@ router.get('/user',
   }
 )
 
+router.get('/username',
+  userController.getUserName,
+  (req, res) => {
+    res.status(200).json(res.locals.username);
+  }
+)
+
 module.exports = router;

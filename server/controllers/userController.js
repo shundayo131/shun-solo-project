@@ -73,12 +73,28 @@ userController.verifyUser = async (req, res, next) => {
 
 // get user 
 userController.getUser = async (req, res, next) => {
-  // get a user_id from user table, using cookie (ssid = cookieid in session table = id in user)
+  // get user_id from cookie, and respond back (to refactor - get a user id from database)
   const user_id = req.cookies.ssid;
   // pass it through res.local.user_id 
   res.locals.user_id = user_id;
   return next();
 }
 
+// get user name
+userController.getUserName = async (req, res, next) => {
+  // get a user_id based on ssid cookie 
+  const user_id = req.cookies.ssid;
+
+  const text = `
+  SELECT username
+  FROM "user"
+  WHERE id = $1;
+  `
+  const param = [user_id];
+  const result = await db.query(text, param);
+  console.log(result)
+  res.locals.username = result.rows[0].username;
+  return next();
+}
 
 module.exports = userController;
